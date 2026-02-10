@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 
 import sammi.bookstore1.domain.Book;
 import sammi.bookstore1.domain.BookRepository;
+import sammi.bookstore1.domain.CategoryRepository;
+import sammi.bookstore1.domain.Category;
 
 
 @SpringBootApplication
@@ -18,31 +20,50 @@ public class Bookstore1Application {
 	}
 
 @Bean
-    public CommandLineRunner demo(BookRepository repository) {
+    public CommandLineRunner demo(BookRepository bookRepository,
+                                   CategoryRepository categoryRepository) {
         return (args) -> {
-            repository.save(new Book(
+           
+Category fiction = new Category("Fiction");
+            Category technology = new Category("Technology");
+            Category history = new Category("History");
+
+            categoryRepository.save(fiction);
+            categoryRepository.save(technology);
+            categoryRepository.save(history);
+
+            // create books
+            Book book1 = new Book(
+                "1984",
+                "George Orwell",
+                1949,
+                "9780451524935",
+                12.99,
+                fiction
+            );
+
+            Book book2 = new Book(
                 "Clean Code",
                 "Robert C. Martin",
                 2008,
                 "9780132350884",
-                45.99
-            ));
+                39.99,
+                technology
+            );
 
-            repository.save(new Book(
-                "Effective Java",
-                "Joshua Bloch",
-                2018,
-                "9780134685991",
-                55.00
-            ));
+            Book book3 = new Book(
+                "Sapiens",
+                "Yuval Noah Harari",
+                2011,
+                "9780062316097",
+                19.99,
+                history
+            );
 
-            repository.save(new Book(
-                "Spring in Action",
-                "Craig Walls",
-                2022,
-                "9781617297571",
-                49.99
-            ));
+            bookRepository.save(book1);
+            bookRepository.save(book2);
+            bookRepository.save(book3);
+
         };
     }
 

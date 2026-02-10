@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sammi.bookstore1.domain.Book;
 import sammi.bookstore1.domain.BookRepository;
+import sammi.bookstore1.domain.CategoryRepository;
 
 import org.springframework.ui.Model;
 
@@ -16,9 +17,11 @@ import org.springframework.ui.Model;
 public class BookController {
 
 private BookRepository repository;
+private CategoryRepository crepository;
 	// constructor injection. Can only be one constructor then.
-	public BookController(BookRepository repository) {
+	public BookController(BookRepository repository, CategoryRepository crepository) {
 		this.repository = repository;
+		this.crepository = crepository;
 	}
 
 
@@ -31,6 +34,7 @@ private BookRepository repository;
 @RequestMapping(value = "/add")
 public String addBook(Model model){
     model.addAttribute("book", new Book());
+	model.addAttribute("catogories", crepository.findAll());
     return "addbook";
 }
 
@@ -50,7 +54,7 @@ public String deleteBook(@PathVariable("id") Long id, Model model) {
 @RequestMapping(value = "/edit/{id}")
 public String editBook(@PathVariable("id") Long id, Model model){
 	repository.findById(id).ifPresent(book -> model.addAttribute("book", book));
-	
+	model.addAttribute("catogories", crepository.findAll());
 	return "editbook";
 }
 

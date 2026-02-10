@@ -23,7 +23,15 @@
 	<input type="text" id="isbn" th:field="*{isbn}" />
     <label for="publicationYear">Publication year</label>
 	<input type="text" id="publicationYear" th:field="*{publicationYear}" />
+<label for="catlist">Category</label>
+<select id="catlist" th:field="*{category}" class="form-control">
+	<option th:each="category: ${catogories}"
+		th:value="${category.categoryid}"
+		th:text="${category.name}"></option>
+</select>
+
 	<input type="submit" value="Save"></input>
+
 </form>
 </div>
 
