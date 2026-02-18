@@ -3,6 +3,8 @@ package sammi.bookstore1.domain;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Category {
 
@@ -11,6 +13,8 @@ public class Category {
     private Long categoryid;
 
     private String name;
+
+@JsonIgnoreProperties("category")
 
     @OneToMany(
         mappedBy = "category",

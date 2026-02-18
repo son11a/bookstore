@@ -1,4 +1,6 @@
 package sammi.bookstore1.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,8 @@ private String author;
 private int publicationYear;
 private String isbn;
 private double price;
+
+@JsonIgnoreProperties("books")
 
  @ManyToOne
     @JoinColumn(name = "categoryid")
