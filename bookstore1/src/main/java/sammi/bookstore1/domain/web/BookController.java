@@ -3,6 +3,7 @@ package sammi.bookstore1.domain.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public String save(Book book){
 }
 
 @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+@PreAuthorize("hasRole('ADMIN')")
 public String deleteBook(@PathVariable("id") Long id, Model model) {
 	repository.deleteById(id);
 	return "redirect:/booklist";
@@ -70,6 +72,11 @@ public @ResponseBody List<Book> bookListRest() {
 @RequestMapping(value="/books/{id}", method = RequestMethod.GET)
 public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id){
 	return repository.findById(id);
+}
+
+@GetMapping("/login")
+public String login() {
+    return "login";
 }
 
 }
