@@ -49,7 +49,7 @@ public String save(Book book){
      return "redirect:booklist";
 }
 
-@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 @PreAuthorize("hasRole('ADMIN')")
 public String deleteBook(@PathVariable("id") Long id, Model model) {
 	repository.deleteById(id);

@@ -52,14 +52,14 @@ public SecurityFilterChain configure(HttpSecurity http) throws Exception {
                         "user",
                         passwordEncoder.encode("password"),
                         "user@email.com",
-                        "USER"
+                        "ROLE_USER"
                 );
 
                 User admin = new User(
                         "admin",
                         passwordEncoder.encode("admin"),
                         "admin@email.com",
-                        "ADMIN"
+                        "ROLE_ADMIN"
                 );
 
                 userRepository.save(user);
