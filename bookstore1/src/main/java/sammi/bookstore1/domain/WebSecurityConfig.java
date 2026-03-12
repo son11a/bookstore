@@ -3,7 +3,7 @@ package sammi.bookstore1.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -19,6 +20,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
+
+    @Autowired
+    private UserDetailService userDetailService; 
+    
 
     @Bean
 public PasswordEncoder passwordEncoder() {
@@ -36,38 +41,13 @@ public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 			.loginPage("/login")
 			.defaultSuccessUrl("/booklist", true)
 			.permitAll()
-		);
+		)
+		.userDetailsService(userDetailService)            
+               .csrf(csrf -> csrf.disable());
 	
 	return http.build();
 }
 
-  @Bean
-    CommandLineRunner loadUsers(UserRepository userRepository,
-                                PasswordEncoder passwordEncoder) {
-        return args -> {
-
-            if (userRepository.findByUsername("user") == null) {
-
-                User user = new User(
-                        "user",
-                        passwordEncoder.encode("password"),
-                        "user@email.com",
-                        "ROLE_USER"
-                );
-
-                User admin = new User(
-                        "admin",
-                        passwordEncoder.encode("admin"),
-                        "admin@email.com",
-                        "ROLE_ADMIN"
-                );
-
-                userRepository.save(user);
-                userRepository.save(admin);
-
-                
-            }
-        };
-    }
+  
 
 }

@@ -1,23 +1,37 @@
 package sammi.bookstore1.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name= "book")
 public class Book {
 
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id")
   private Long id;
+
+  @Column(name = "title")
  private String title;
+
+ @Column(name = "author")
 private String author;
+
+@Column(name = "publication_year")
 private int publicationYear;
+
+@Column(name = "isbn")
 private String isbn;
+
+@Column(name = "price")
 private double price;
 
 @JsonIgnoreProperties("books")

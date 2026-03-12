@@ -6,12 +6,15 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@Table(name= "category")
 public class Category {
 
   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "categoryid")
     private Long categoryid;
 
+    @Column(name = "name")
     private String name;
 
 @JsonIgnoreProperties("category")
