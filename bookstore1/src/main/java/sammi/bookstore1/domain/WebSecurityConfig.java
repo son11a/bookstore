@@ -42,8 +42,8 @@ public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 			.defaultSuccessUrl("/booklist", true)
 			.permitAll()
 		)
-		.userDetailsService(userDetailService)            
-               .csrf(csrf -> csrf.disable());
+		.userDetailsService(userDetailService);            
+               
 	
 	return http.build();
 }

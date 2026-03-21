@@ -3,12 +3,12 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE category (
-    categoryid BIGINT PRIMARY KEY,
+    categoryid BIGSERIAL PRIMARY KEY,
     name VARCHAR(255)
 );
 
 CREATE TABLE book (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255),
     author VARCHAR(255),
     publication_year INTEGER,
@@ -21,7 +21,7 @@ CREATE TABLE book (
 );
 
 CREATE TABLE users (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -29,9 +29,9 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (username, password, email, role) VALUES
-('admin', '$2a$10$Dow1eY9G7sQq8j9YQJk4Uu4K5q8zZq9Vq3K1p1y4NQyJXkKq5W1yK', 'admin@bookstore.com', 'ADMIN'),
-('user1', '$2a$10$Dow1eY9G7sQq8j9YQJk4Uu4K5q8zZq9Vq3K1p1y4NQyJXkKq5W1yK', 'user1@email.com', 'USER'),
-('user2', '$2a$10$Dow1eY9G7sQq8j9YQJk4Uu4K5q8zZq9Vq3K1p1y4NQyJXkKq5W1yK', 'user2@email.com', 'USER');
+('admin', '$2a$10$cDZgyF4xaPMmmoRW3OVcmuf.8o2YSx8.M7CeRKqi.1PVw.t3E8uEC', 'admin@bookstore.com', 'ROLE_ADMIN'),
+('user', '$2a$10$1DTvwpXVBArGFixHBuzVJObjTuXhIOkx5pse6KsYs8/C2ckxnGEou', 'user1@email.com', 'ROLE_USER');
+
 
 INSERT INTO category (name) VALUES
 ('Fiction'),
