@@ -31,9 +31,18 @@ public class BookRepositoryTests {
     @Test
     public void createNewBook() {
 
-    Book book = new Book("Paul Trembley", "A Head Full of Ghosts", 2015, "ISBN434345621394", 16.40, crepository.findByName("Fiction").get(0));
+    Book book = new Book("A Head Full of Ghosts", "Paul Trembley", 2015, "ISBN434345621394", 16.40, crepository.findByName("Fiction").get(0));
     repository.save(book);
     assertThat(book.getId()).isNotNull();
     }
+
+    @Test
+public void deleteBook() {
+List<Book> books = repository.findByAuthor("Paul Trembley");
+Book book = books.get(0);
+repository.delete(book);
+List<Book> newBooks = repository.findByAuthor("Paul Trembley");
+assertThat(newBooks).hasSize(0);
+}
 
 }
